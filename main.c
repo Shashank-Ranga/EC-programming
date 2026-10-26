@@ -17,12 +17,23 @@
  */
 
 #include <stdint.h>
-#include <stdio.h>
 
 int main(void)
 {
+	uint32_t *pClkCntrlReg = (uint32_t*)0x40023830;   //Pointer to initialize address of clock of port-D, and enable the clock
+    uint32_t *pPortDModeReg = (uint32_t*)0x40020C00;  //Pointer to initialize address to set the mode as output for port-D pin 12
+    uint32_t *pPortDOutReg = (uint32_t*)0x40020C14;
 
-	printf("Hello world\n");
+    //enable the clock for portD
+    *pClkCntrlReg |= (1 << 3);
+
+    //set the mode as output in portD
+    *pPortDModeReg &= ~(3 << 24); //clearing the bits to ensure, the mode is reset
+    *pPortDModeReg |= (1 << 24);  //setting the mode as output.
+
+    //make 12th bit position to 1, to set the pin12
+    *pPortDOutReg |= (1 << 12);
+
     /* Loop forever */
 	for(;;);
 }
