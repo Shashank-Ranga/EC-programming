@@ -35,7 +35,7 @@ int main(void)
 {
 	//1.We are going to configure priority for the peripherals.
 	configure_priority(IRQNO_TIMER2,0x80);
-	configure_priority(IRQNO_I2C1,0x70);
+	configure_priority(IRQNO_I2C1,0x80);
 
 	//2.Set the Interrupt Pending bit in NVIC Pending Register.
 	*pNVIC_ISPRBase |=(1 << IRQNO_TIMER2);
